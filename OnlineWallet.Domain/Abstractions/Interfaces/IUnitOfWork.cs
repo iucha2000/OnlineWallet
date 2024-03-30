@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineWallet.Domain.Entities
+namespace OnlineWallet.Domain.Abstractions.Interfaces
 {
-    public abstract class BaseEntity
+    public interface IUnitOfWork
     {
-        public Guid Id { get; set; }
+        public Task<bool> CommitAsync();
     }
 }

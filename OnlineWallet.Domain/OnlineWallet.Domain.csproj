@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstractions\Interfaces\" />
     <Folder Include="Abstractions\Repositories\" />
     <Folder Include="Exceptions\" />
   </ItemGroup>

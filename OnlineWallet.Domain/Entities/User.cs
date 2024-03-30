@@ -1,4 +1,5 @@
-﻿using OnlineWallet.Domain.Enums;
+﻿using OnlineWallet.Domain.Common;
+using OnlineWallet.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
