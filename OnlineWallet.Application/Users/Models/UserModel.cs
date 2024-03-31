@@ -1,21 +1,18 @@
-﻿using OnlineWallet.Domain.Common;
-using OnlineWallet.Domain.Enums;
+﻿using OnlineWallet.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineWallet.Domain.Entities
+namespace OnlineWallet.Application.Users.Models
 {
-    public class User : BaseEntity
+    public class UserModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
+        public string Password { get; set; }
         public Role Role { get; set; }
-        public IList<Wallet> Wallets { get; set; }
     }
 }

@@ -1,7 +1,11 @@
 
+using OnlineWallet.Application;
+using OnlineWallet.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using OnlineWallet.Domain.Abstractions.Interfaces;
 using OnlineWallet.Infrastructure.Persistence;
+using OnlineWallet.WebApi.Extensions;
 using System.Reflection;
 
 namespace OnlineWallet.WebApi
@@ -14,21 +18,9 @@ namespace OnlineWallet.WebApi
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-
-
-            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
-            });
-
-            builder.Services.AddScoped<Func<ApplicationDbContext>>((provider) => provider.GetRequiredService<ApplicationDbContext>);
+            builder.Services.AddUILayer();
+            builder.Services.AddApplicationLayer();
+            builder.Services.AddInfrastructureLayer(builder.Configuration);      
 
             var app = builder.Build();
 
