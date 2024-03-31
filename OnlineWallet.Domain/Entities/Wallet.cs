@@ -11,8 +11,9 @@ namespace OnlineWallet.Domain.Entities
     {
         public string WalletName { get; set; }
         public string WalletCode { get; set; }
+        public string Currency { get; set; }
         public decimal Balance { get; set; }
-        public User User { get; set; }
+        public Guid UserId { get; set; }
         public Transaction[] TransactionHistory { get; set; }
 
     }
