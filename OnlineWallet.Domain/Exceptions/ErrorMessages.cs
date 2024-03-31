@@ -9,7 +9,6 @@ namespace OnlineWallet.Domain.Exceptions
     public static class ErrorMessages
     {
         public static string NotFoundMessage = "Not found";
-        public static string DataNotFoundMessage = "Data Not found";
-        public static string UserAlreadyExists = "User already exists";
+        public static string UserAlreadyExistsMessage = "User already exists";
     }
 }

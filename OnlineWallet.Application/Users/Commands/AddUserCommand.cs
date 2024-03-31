@@ -33,7 +33,7 @@ namespace OnlineWallet.Application.Users.Commands
             
             if (existingUser != null)
             {
-                return Result.Failed(ErrorMessages.UserAlreadyExists, StatusCodes.Status409Conflict);
+                throw new EntityAlreadyExistsException(ErrorMessages.UserAlreadyExistsMessage);
             }
 
             var newUser = new User

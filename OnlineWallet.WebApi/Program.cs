@@ -7,6 +7,7 @@ using OnlineWallet.Domain.Abstractions.Interfaces;
 using OnlineWallet.Infrastructure.Persistence;
 using OnlineWallet.WebApi.Extensions;
 using System.Reflection;
+using OnlineWallet.WebApi.Middlewares;
 
 namespace OnlineWallet.WebApi
 {
@@ -24,6 +25,8 @@ namespace OnlineWallet.WebApi
 
             var app = builder.Build();
 
+            app.UseMiddleware<ExceptionMiddleware>();
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -34,7 +37,6 @@ namespace OnlineWallet.WebApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
