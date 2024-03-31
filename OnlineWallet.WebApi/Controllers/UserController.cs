@@ -14,7 +14,7 @@ namespace OnlineWallet.WebApi.Controllers
         [HttpPost("add-user")]
         public async Task<IActionResult> AddUser(UserModel userModel)
         {
-            var command = new AddUserCommand(userModel.FirstName, userModel.LastName, userModel.Email, userModel.Password,userModel.Role);
+            var command = new AddUserCommand(userModel.FirstName, userModel.LastName, userModel.Email, userModel.Password, userModel.Role);
             var result = await _mediator.Send(command);
             return Ok(result);
         }

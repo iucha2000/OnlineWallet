@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace OnlineWallet.Application.Users.Commands
 {
-    public record AddUserCommand(string FirstName, string LastName, string Email, string Password, Role Role) : IRequest<Result>;
+    public record AddUserCommand(string FirstName, string LastName, string Email, string Password, int Role) : IRequest<Result>;
 
     public class AddUserCommandHandler : IRequestHandler<AddUserCommand, Result>
     {
@@ -43,7 +43,7 @@ namespace OnlineWallet.Application.Users.Commands
                 Email = request.Email,
                 PasswordHash = Encoding.ASCII.GetBytes(request.Password),
                 PasswordSalt = Encoding.ASCII.GetBytes(request.Password),
-                Role = request.Role,
+                Role = (Role)request.Role,
                 Wallets = new List<Wallet>()
             };
 

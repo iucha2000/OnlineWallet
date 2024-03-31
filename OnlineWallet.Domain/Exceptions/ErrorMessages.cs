@@ -8,7 +8,8 @@ namespace OnlineWallet.Domain.Exceptions
 {
     public static class ErrorMessages
     {
-        public static string NotFoundMessage = "Not found";
-        public static string UserAlreadyExistsMessage = "User already exists";
+        public const string NotFoundMessage = "Not found";
+        public const string UserAlreadyExistsMessage = "User already exists";
+        public const string RoleOutOfBounds = "Role parameter must be equal to 0 or 1";
     }
 }
