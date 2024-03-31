@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using OnlineWallet.Infrastructure.Persistence;
 using System.Reflection;
 
 namespace OnlineWallet.WebApi
@@ -20,7 +23,12 @@ namespace OnlineWallet.WebApi
 
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
+            });
 
+            builder.Services.AddScoped<Func<ApplicationDbContext>>((provider) => provider.GetRequiredService<ApplicationDbContext>);
 
             var app = builder.Build();
 

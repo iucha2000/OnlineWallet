@@ -13,8 +13,7 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Persistence\Migrations\" />
-    <Folder Include="Persistence\Repositories\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
