@@ -11,18 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Authentication\Commands\" />
-    <Folder Include="Authentication\Models\" />
-    <Folder Include="Authentication\Queries\" />
-    <Folder Include="Transaction\Commands\" />
-    <Folder Include="Transaction\Models\" />
-    <Folder Include="Transaction\Queries\" />
-    <Folder Include="User\Commands\" />
-    <Folder Include="User\Models\" />
-    <Folder Include="User\Queries\" />
-    <Folder Include="Wallet\Commands\" />
-    <Folder Include="Wallet\Models\" />
-    <Folder Include="Wallet\Queries\" />
     <Folder Include="Services\" />
   </ItemGroup>
 

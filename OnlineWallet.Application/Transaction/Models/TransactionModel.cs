@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OnlineWallet.Domain.Common;
 
-namespace OnlineWallet.Domain.Entities
+namespace OnlineWallet.Application.Transaction.Models
 {
-    public class Transaction : BaseEntity
+    public class TransactionModel
     {
-        public Guid SenderUserId { get; set; }
         public Guid ReceiverUserId { get; set; }
-        public Guid SenderWalletId { get; set; }
         public Guid ReceiverWalletId { get; set; }
         public string Currency { get; set; }
         public decimal Amount { get; set; }
-        public DateTime Date { get; set; }
     }
 }

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OnlineWallet.Domain.Common;
 
-namespace OnlineWallet.Domain.Entities
+namespace OnlineWallet.Application.Transaction.Models
 {
-    public class Transaction : BaseEntity
+    public class GetTransactionModel
     {
         public Guid SenderUserId { get; set; }
         public Guid ReceiverUserId { get; set; }
