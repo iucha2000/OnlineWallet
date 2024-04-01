@@ -29,7 +29,7 @@ namespace OnlineWallet.Infrastructure.Persistence
             return Result.Succeed();
         }
 
-        public async Task<Result> DeleteByIdAsync(int id)
+        public async Task<Result> DeleteByIdAsync(Guid id)
         {
             var entity = await _dbSet.FindAsync(id);
             if(entity == null)
@@ -85,7 +85,7 @@ namespace OnlineWallet.Infrastructure.Persistence
             return Result<IList<T>>.Succeed(result);
         }
 
-        public async Task<Result<T>> GetByIdAsync(int id)
+        public async Task<Result<T>> GetByIdAsync(Guid id)
         {
             var result = await _dbSet.FindAsync(id);
             return Result<T>.Succeed(result);

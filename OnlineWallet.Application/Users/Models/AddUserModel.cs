@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnlineWallet.Application.Users.Models
 {
-    public class UserModel
+    public class AddUserModel
     {
         [Required]
         [MaxLength(20)]

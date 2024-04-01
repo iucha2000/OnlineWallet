@@ -22,14 +22,12 @@ namespace OnlineWallet.Application.Users.Commands
         private readonly IGenericRepository<User> _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPasswordHandler _passwordHandler;
-        private readonly ITokenHandler _tokenHandler;
 
-        public AddUserCommandHandler(IGenericRepository<User> userRepository, IUnitOfWork unitOfWork, IPasswordHandler passwordHandler, ITokenHandler tokenHandler)
+        public AddUserCommandHandler(IGenericRepository<User> userRepository, IUnitOfWork unitOfWork, IPasswordHandler passwordHandler)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
             _passwordHandler = passwordHandler;
-            _tokenHandler = tokenHandler;
         }
 
         public async Task<Result> Handle(AddUserCommand request, CancellationToken cancellationToken)

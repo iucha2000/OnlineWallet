@@ -16,8 +16,8 @@ namespace OnlineWallet.Domain.Common
         {
             return new Result
             {
-                Success = true,
                 StatusCode = statusCode,
+                Success = true
             };
         }
 
@@ -25,9 +25,9 @@ namespace OnlineWallet.Domain.Common
         {
             return new Result
             { 
-                Success = false, 
-                Message = message,
-                StatusCode = statusCode 
+                StatusCode = statusCode,
+                Success = false,
+                Message = message
             };
         }
     }
@@ -37,25 +37,25 @@ namespace OnlineWallet.Domain.Common
         public bool Success { get; set; }
         public string? Message { get; set; }
         public int StatusCode { get; set; }
-        public T Value { get; set; }
+        public T? Value { get; set; }
 
         public static Result<T> Succeed(T value, int statusCode = 200)
         {
             return new Result<T>
             {
-                Success = true,
                 StatusCode = statusCode,
+                Success = true,
                 Value = value,
             };
         }
 
-        public static Result<T> Fail(string message, int statusCode = 500)
+        public static Result<T> Failed(string message, int statusCode = 500)
         {
             return new Result<T>
             {
-                Success = false,
-                Message = message,
                 StatusCode = statusCode,
+                Success = false,
+                Message = message
             };
         }
     }

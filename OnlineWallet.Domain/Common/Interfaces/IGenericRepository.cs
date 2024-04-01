@@ -12,10 +12,10 @@ namespace OnlineWallet.Domain.Common.Interfaces
     {
         Task<Result<T>> GetAsync(Expression<Func<T, bool>> filter = null, string includeProperties = "", bool trackChanges = true);
         Task<Result<IList<T>>> GetListAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "", int count = 0, bool trackChanges = true);
-        Task<Result<T>> GetByIdAsync(int id);
+        Task<Result<T>> GetByIdAsync(Guid id);
         Task<Result> InsertAsync(T entity);
         Task<Result<T>> UpdateAsync(T entity);
         Task<Result> DeleteAsync(T entity);
-        Task<Result> DeleteByIdAsync(int id);
+        Task<Result> DeleteByIdAsync(Guid id);
     }
 }
