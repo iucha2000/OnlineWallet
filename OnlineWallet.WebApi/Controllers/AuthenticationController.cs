@@ -1,5 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using OnlineWallet.Application.Authentication.Commands;
+using OnlineWallet.Application.Authentication.Models;
+using OnlineWallet.Application.Authentication.Queries;
 
 namespace OnlineWallet.WebApi.Controllers
 {
@@ -8,19 +11,37 @@ namespace OnlineWallet.WebApi.Controllers
         public AuthenticationController(ISender mediator) : base(mediator) { }
 
         [HttpPost("Register")]
-        public async Task<IActionResult> Register()
+        public async Task<IActionResult> Register(RegisterModel registerModel)
         {
-            //TODO register command
+            var command = new RegisterUserCommand(registerModel.FirstName, registerModel.LastName, registerModel.EmailAddress, registerModel.Password);
 
-            return Ok();
+            var result = await _mediator.Send(command);
+            
+            if(result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return Problem(result.Message);
+            }
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login(LoginModel loginUserModel)
         {
-            //TODO login command
+            var query = new LoginUserQuery(loginUserModel.EmailAddress, loginUserModel.Password);
 
-            return Ok();
+            var result = await _mediator.Send(query);
+
+            if(result.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return Problem(result.Message);
+            }
         }
     }
 }

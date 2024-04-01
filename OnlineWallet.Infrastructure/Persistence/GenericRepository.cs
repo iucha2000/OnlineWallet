@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using OnlineWallet.Domain.Abstractions.Interfaces;
 using OnlineWallet.Domain.Common;
+using OnlineWallet.Domain.Common.Interfaces;
 using OnlineWallet.Domain.Exceptions;
 using System;
 using System.Collections.Generic;

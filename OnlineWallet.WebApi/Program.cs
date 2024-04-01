@@ -3,7 +3,6 @@ using OnlineWallet.Application;
 using OnlineWallet.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using OnlineWallet.Domain.Abstractions.Interfaces;
 using OnlineWallet.Infrastructure.Persistence;
 using OnlineWallet.WebApi.Extensions;
 using System.Reflection;
@@ -37,6 +36,7 @@ namespace OnlineWallet.WebApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.MapControllers();
 

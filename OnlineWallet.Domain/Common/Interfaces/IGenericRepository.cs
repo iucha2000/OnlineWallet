@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineWallet.Domain.Abstractions.Interfaces
+namespace OnlineWallet.Domain.Common.Interfaces
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {

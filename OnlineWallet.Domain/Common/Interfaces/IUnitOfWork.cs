@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineWallet.Domain.Abstractions.Interfaces
+namespace OnlineWallet.Domain.Common.Interfaces
 {
     public interface IUnitOfWork
     {

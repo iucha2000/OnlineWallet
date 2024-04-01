@@ -1,4 +1,4 @@
-﻿using OnlineWallet.Domain.Abstractions.Interfaces;
+﻿using OnlineWallet.Domain.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
