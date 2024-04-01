@@ -19,8 +19,8 @@ namespace OnlineWallet.Infrastructure
     {
         public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddPersistence(configuration);
             services.AddAuthentication(configuration);
+            services.AddPersistence(configuration);
 
             return services;
         }

@@ -35,8 +35,8 @@ namespace OnlineWallet.WebApi
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllers();
 

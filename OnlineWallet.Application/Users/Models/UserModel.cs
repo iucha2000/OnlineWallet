@@ -25,6 +25,7 @@ namespace OnlineWallet.Application.Users.Models
         public string Email { get; set; }
 
         [Required]
+        [MinLength(8)]
         [PasswordPropertyText]
         public string Password { get; set; }
 

@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 
 namespace OnlineWallet.Application.Users.Commands
 {
-    public record AddUserCommand(string FirstName, string LastName, string Email, string Password, int Role) : IRequest<Result<string>>;
+    public record AddUserCommand(string FirstName, string LastName, string Email, string Password, int Role) : IRequest<Result>;
 
-    internal class AddUserCommandHandler : IRequestHandler<AddUserCommand, Result<string>>
+    internal class AddUserCommandHandler : IRequestHandler<AddUserCommand, Result>
     {
         private readonly IGenericRepository<User> _userRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -32,7 +32,7 @@ namespace OnlineWallet.Application.Users.Commands
             _tokenHandler = tokenHandler;
         }
 
-        public async Task<Result<string>> Handle(AddUserCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
             var existingUser = await _userRepository.GetAsync(x => x.Email == request.Email);
             
@@ -57,9 +57,7 @@ namespace OnlineWallet.Application.Users.Commands
             await _userRepository.InsertAsync(newUser);
             await _unitOfWork.CommitAsync();
 
-            var token = _tokenHandler.GenerateToken(newUser);
-
-            return Result<string>.Succeed(token);
+            return Result.Succeed();
         }
     }
 
