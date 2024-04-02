@@ -1,9 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineWallet.Application.Users.Commands;
-using OnlineWallet.Application.Users.Models;
-using OnlineWallet.Application.Users.Queries;
+using OnlineWallet.Application.Common.Models;
+using OnlineWallet.Application.Users.Commands.AddUser;
+using OnlineWallet.Application.Users.Commands.DeleteUser;
+using OnlineWallet.Application.Users.Commands.UpdateUser;
+using OnlineWallet.Application.Users.Queries.GetUser;
 
 namespace OnlineWallet.WebApi.Controllers
 {

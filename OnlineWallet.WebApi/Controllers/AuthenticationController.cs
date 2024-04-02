@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using OnlineWallet.Application.Authentication.Commands;
-using OnlineWallet.Application.Authentication.Models;
-using OnlineWallet.Application.Authentication.Queries;
+using OnlineWallet.Application.Authentication.Commands.RegisterUser;
+using OnlineWallet.Application.Authentication.Queries.LoginUser;
+using OnlineWallet.Application.Common.Models;
 
 namespace OnlineWallet.WebApi.Controllers
 {
