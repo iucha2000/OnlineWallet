@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using OnlineWallet.Domain.Common;
 
 namespace OnlineWallet.Application.Wallets.Commands.UpdateWallet
 {
-    internal class UpdateWalletCommand
-    {
-    }
+    public record UpdateWalletCommand(Guid UserId, string WalletCode, string? WalletName, string? Currency, bool? IsDefault) : IRequest<Result>;
+
 }

@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineWallet.Application.Common.Models
+namespace OnlineWallet.Application.Common.Models.Wallet
 {
-    public class GetWalletModel
+    public class AddWalletModel
     {
+        [Required]
         public string WalletName { get; set; }
-        public string WalletCode { get; set; }
+
+        [Required]
         public string Currency { get; set; }
-        public decimal Balance { get; set; }
+
+        [Required]
         public bool IsDefault { get; set; }
-        public GetTransactionModel[] TransactionHistory { get; set; }
     }
 }

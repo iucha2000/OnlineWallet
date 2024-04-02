@@ -15,7 +15,7 @@ namespace OnlineWallet.Domain.Entities
         public decimal Balance { get; set; }
         public Guid UserId { get; set; }
         public bool IsDefault { get; set; }
-        public IList<Transaction> TransactionHistory { get; set; }
+        public IEnumerable<Transaction> TransactionHistory { get; set; }
 
     }
 }

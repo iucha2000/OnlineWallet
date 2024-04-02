@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineWallet.Application.Common.Models
+namespace OnlineWallet.Application.Common.Models.User
 {
     public class UpdateUserModel
     {
@@ -23,5 +23,8 @@ namespace OnlineWallet.Application.Common.Models
         [MinLength(8)]
         [PasswordPropertyText]
         public string? Password { get; set; }
+
+        [RegularExpression("[0|1]", ErrorMessage = ErrorMessages.RoleOutOfBounds)]
+        public int? Role { get; set; }
     }
 }

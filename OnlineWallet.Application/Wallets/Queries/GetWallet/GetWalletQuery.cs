@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using OnlineWallet.Application.Common.Models.Wallet;
+using OnlineWallet.Domain.Common;
 
 namespace OnlineWallet.Application.Wallets.Queries.GetWallet
 {
-    internal class GetWalletQuery
-    {
-    }
+    public record GetWalletQuery(Guid UserId, string WalletCode) : IRequest<Result<GetWalletModel>>;
 }

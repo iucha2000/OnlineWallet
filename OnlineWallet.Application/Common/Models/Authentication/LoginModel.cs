@@ -6,18 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineWallet.Application.Common.Models
+namespace OnlineWallet.Application.Common.Models.Authentication
 {
-    public class RegisterModel
+    public class LoginModel
     {
-        [Required]
-        [MaxLength(20)]
-        public string FirstName { get; set; }
-
-        [Required]
-        [MaxLength(20)]
-        public string LastName { get; set; }
-
         [Required]
         [EmailAddress]
         public string EmailAddress { get; set; }

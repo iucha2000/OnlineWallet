@@ -1,9 +1,10 @@
 ﻿using MediatR;
-using OnlineWallet.Application.Common.Models;
 using OnlineWallet.Domain.Common.Interfaces;
 using OnlineWallet.Domain.Common;
 using OnlineWallet.Domain.Entities;
 using OnlineWallet.Domain.Exceptions;
+using OnlineWallet.Application.Common.Models.User;
+using OnlineWallet.Application.Common.Models.Wallet;
 
 namespace OnlineWallet.Application.Users.Queries.GetUser
 {
@@ -20,20 +21,34 @@ namespace OnlineWallet.Application.Users.Queries.GetUser
 
         public async Task<Result<GetUserModel>> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(request.userId);
+            var user = await _userRepository.GetAsync(x => x.Id == request.userId, includeProperties: "Wallets");
 
             if (user.Value == null)
             {
                 throw new EntityNotFoundException(ErrorMessages.UserNotFound);
             }
 
+            var userWallets = new List<GetWalletModel>();
+            foreach(var wallet in user.Value.Wallets)
+            {
+                var userWallet = new GetWalletModel()
+                {
+                    WalletName = wallet.WalletName,
+                    WalletCode = wallet.WalletCode,
+                    Currency = wallet.Currency,
+                    Balance = wallet.Balance,
+                    IsDefault = wallet.IsDefault,
+                };
+                userWallets.Add(userWallet);
+            }
+
+            //TODO optimize
             var userModel = new GetUserModel
             {
                 FirstName = user.Value.FirstName,
                 LastName = user.Value.LastName,
                 Email = user.Value.Email,
-                //TODO walletebis camogeba
-                Wallets = null
+                Wallets = userWallets
             };
 
             return Result<GetUserModel>.Succeed(userModel);

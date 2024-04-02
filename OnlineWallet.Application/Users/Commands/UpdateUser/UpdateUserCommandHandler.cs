@@ -4,6 +4,7 @@ using OnlineWallet.Domain.Common.Interfaces;
 using OnlineWallet.Domain.Common;
 using OnlineWallet.Domain.Entities;
 using OnlineWallet.Domain.Exceptions;
+using OnlineWallet.Domain.Enums;
 
 namespace OnlineWallet.Application.Users.Commands.UpdateUser
 {
@@ -58,6 +59,11 @@ namespace OnlineWallet.Application.Users.Commands.UpdateUser
                 _passwordHandler.CreateHashAndSalt(request.Password, out var passwordHash, out var passwordSalt);
                 updatedUser.PasswordHash = passwordHash;
                 updatedUser.PasswordSalt = passwordSalt;
+            }
+
+            if(request.Role != null)
+            {
+                updatedUser.Role = (Role)request.Role;
             }
 
             await _userRepository.UpdateAsync(updatedUser);

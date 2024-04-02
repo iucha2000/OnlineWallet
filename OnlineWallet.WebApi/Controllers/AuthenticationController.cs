@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineWallet.Application.Authentication.Commands.RegisterUser;
 using OnlineWallet.Application.Authentication.Queries.LoginUser;
-using OnlineWallet.Application.Common.Models;
+using OnlineWallet.Application.Common.Models.Authentication;
 
 namespace OnlineWallet.WebApi.Controllers
 {

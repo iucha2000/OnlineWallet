@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineWallet.Application.Common.Models
+namespace OnlineWallet.Application.Common.Models.User
 {
     public class AddUserModel
     {

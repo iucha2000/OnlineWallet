@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using OnlineWallet.Domain.Common;
 
 namespace OnlineWallet.Application.Wallets.Commands.DeleteWallet
 {
-    internal class DeleteWalletCommand
-    {
-    }
+    public record DeleteWalletCommand(Guid UserId, string WalletCode) : IRequest<Result>;
+
 }

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineWallet.Application.Common.Models;
+using OnlineWallet.Application.Common.Models.User;
 using OnlineWallet.Application.Users.Commands.AddUser;
 using OnlineWallet.Application.Users.Commands.DeleteUser;
 using OnlineWallet.Application.Users.Commands.UpdateUser;
@@ -26,7 +26,7 @@ namespace OnlineWallet.WebApi.Controllers
         [HttpPut("update-user")]
         public async Task<IActionResult> UpdateUser(Guid userId, UpdateUserModel userModel)
         {
-            var command = new UpdateUserCommand(userId, userModel.FirstName, userModel.LastName, userModel.Email, userModel.Password);
+            var command = new UpdateUserCommand(userId, userModel.FirstName, userModel.LastName, userModel.Email, userModel.Password, userModel.Role);
             var result = await _mediator.Send(command);
             return Ok(result);
         }
