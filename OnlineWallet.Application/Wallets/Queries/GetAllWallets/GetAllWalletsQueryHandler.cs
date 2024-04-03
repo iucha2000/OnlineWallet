@@ -1,0 +1,57 @@
+﻿using MediatR;
+using OnlineWallet.Application.Common.Models.Wallet;
+using OnlineWallet.Domain.Common;
+using OnlineWallet.Domain.Common.Interfaces;
+using OnlineWallet.Domain.Entities;
+using OnlineWallet.Domain.Exceptions;
+
+namespace OnlineWallet.Application.Wallets.Queries.GetAllWallets
+{
+    internal class GetAllWalletsQueryHandler : IRequestHandler<GetAllWalletsQuery, Result<IList<GetWalletModel>>>
+    {
+        private readonly IGenericRepository<Wallet> _walletRepository;
+        private readonly IGenericRepository<User> _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public GetAllWalletsQueryHandler(IGenericRepository<Wallet> walletRepository, IGenericRepository<User> userRepository, IUnitOfWork unitOfWork)
+        {
+            _walletRepository = walletRepository;
+            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
+        }
+
+        public async Task<Result<IList<GetWalletModel>>> Handle(GetAllWalletsQuery request, CancellationToken cancellationToken)
+        {
+            if (request.UserId == Guid.Empty)
+            {
+                throw new EntityNotFoundException(ErrorMessages.AuthenticatedUserNotFound);
+            }
+
+            var user = await _userRepository.GetAsync(x => x.Id == request.UserId, includeProperties: "Wallets");
+            if (user.Value == null)
+            {
+                throw new EntityNotFoundException(ErrorMessages.UserNotFound);
+            }
+
+            var wallets = user.Value.Wallets.ToList();
+            var walletsList = new List<GetWalletModel>();
+            foreach (var wallet in wallets)
+            {
+                var walletModel = new GetWalletModel
+                {
+                    WalletName = wallet.WalletName,
+                    WalletCode = wallet.WalletCode,
+                    Currency = wallet.Currency,
+                    Balance = wallet.Balance,
+                    IsDefault = wallet.IsDefault,
+                    //TODO add transactions
+                    TransactionHistory = null
+                };
+                walletsList.Add(walletModel);
+            }
+
+            return Result<IList<GetWalletModel>>.Succeed(walletsList);
+
+        }
+    }
+}

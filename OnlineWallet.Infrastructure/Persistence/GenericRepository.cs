@@ -57,7 +57,7 @@ namespace OnlineWallet.Infrastructure.Persistence
             return Result<T>.Succeed(result);
         }
 
-        public async Task<Result<IList<T>>> GetListAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "", int count = 0, bool trackChanges = true)
+        public async Task<Result<IList<T>>> GetListAsync(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "", bool trackChanges = true)
         {
             IQueryable<T> query = _dbSet;
 
@@ -75,13 +75,14 @@ namespace OnlineWallet.Infrastructure.Persistence
             {
                 query = orderBy(query);
             }
-            
-            if(count > 0)
-            {
-                query = query.Take(count);
-            }
 
             var result = trackChanges ?  await query.ToListAsync() : await query.AsNoTracking().ToListAsync();
+            return Result<IList<T>>.Succeed(result);
+        }
+
+        public async Task<Result<IList<T>>> GetAllAsync()
+        {
+            var result = await _dbSet.ToListAsync();
             return Result<IList<T>>.Succeed(result);
         }
 

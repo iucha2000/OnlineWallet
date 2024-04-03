@@ -34,33 +34,26 @@ namespace OnlineWallet.Application.Wallets.Queries.GetWallet
                 throw new EntityNotFoundException(ErrorMessages.UserNotFound);
             }
 
-            var userWallet = user.Value.Wallets.FirstOrDefault(x => x.WalletCode == request.WalletCode);
-            if (userWallet == null)
-            {
-                throw new EntityNotFoundException(ErrorMessages.WalletNotFound);
-            }
-
-            //TODO optimize
-            var wallet = await _walletRepository.GetAsync(x => x.WalletCode == userWallet.WalletCode, includeProperties: "TransactionHistory");
-            if(wallet == null)
+            var wallet = await _walletRepository.GetAsync(x => x.WalletCode == request.WalletCode && x.UserId == user.Value.Id, includeProperties: "TransactionHistory");
+            if(wallet.Value == null)
             {
                 throw new EntityNotFoundException(ErrorMessages.WalletNotFound);
             }
 
             var walletTransactions = new List<GetTransactionModel>();
-            foreach (Transaction t in wallet.Value.TransactionHistory)
+            foreach (Transaction transaction in wallet.Value.TransactionHistory)
             {
-                var transaction = new GetTransactionModel
+                var walletTransaction = new GetTransactionModel
                 {
-                    SenderUserId = t.SenderUserId,
-                    ReceiverUserId = t.ReceiverUserId,
-                    SenderWalletId = t.SenderWalletId,
-                    ReceiverWalletId = t.ReceiverWalletId,
-                    Currency = t.Currency,
-                    Amount = t.Amount,
-                    Date = t.Date,
+                    SenderUserId = transaction.SenderUserId,
+                    ReceiverUserId = transaction.ReceiverUserId,
+                    SenderWalletId = transaction.SenderWalletId,
+                    ReceiverWalletId = transaction.ReceiverWalletId,
+                    Currency = transaction.Currency,
+                    Amount = transaction.Amount,
+                    Date = transaction.Date,
                 };
-                walletTransactions.Add(transaction);
+                walletTransactions.Add(walletTransaction);
             }
 
             var walletModel = new GetWalletModel

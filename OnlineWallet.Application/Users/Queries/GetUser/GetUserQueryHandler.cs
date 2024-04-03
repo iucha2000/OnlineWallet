@@ -29,7 +29,7 @@ namespace OnlineWallet.Application.Users.Queries.GetUser
             }
 
             var userWallets = new List<GetWalletModel>();
-            foreach(var wallet in user.Value.Wallets)
+            foreach(Wallet wallet in user.Value.Wallets)
             {
                 var userWallet = new GetWalletModel()
                 {
@@ -42,9 +42,9 @@ namespace OnlineWallet.Application.Users.Queries.GetUser
                 userWallets.Add(userWallet);
             }
 
-            //TODO optimize
             var userModel = new GetUserModel
             {
+                Id = user.Value.Id,
                 FirstName = user.Value.FirstName,
                 LastName = user.Value.LastName,
                 Email = user.Value.Email,

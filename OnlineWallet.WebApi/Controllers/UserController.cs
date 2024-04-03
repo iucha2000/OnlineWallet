@@ -5,6 +5,7 @@ using OnlineWallet.Application.Common.Models.User;
 using OnlineWallet.Application.Users.Commands.AddUser;
 using OnlineWallet.Application.Users.Commands.DeleteUser;
 using OnlineWallet.Application.Users.Commands.UpdateUser;
+using OnlineWallet.Application.Users.Queries.GetAllUsers;
 using OnlineWallet.Application.Users.Queries.GetUser;
 
 namespace OnlineWallet.WebApi.Controllers
@@ -45,6 +46,15 @@ namespace OnlineWallet.WebApi.Controllers
         public async Task<IActionResult> GetUser(Guid userId)
         {
             var query = new GetUserQuery(userId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("get-all-users")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var query = new GetAllUsersQuery();
             var result = await _mediator.Send(query);
             return Ok(result);
         }

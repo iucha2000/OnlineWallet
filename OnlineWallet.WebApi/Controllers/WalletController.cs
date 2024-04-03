@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineWallet.Application.Common.Models.Wallet;
-using OnlineWallet.Application.Users.Commands.DeleteUser;
 using OnlineWallet.Application.Wallets.Commands.AddWallet;
 using OnlineWallet.Application.Wallets.Commands.DeleteWallet;
 using OnlineWallet.Application.Wallets.Commands.UpdateWallet;
+using OnlineWallet.Application.Wallets.Queries.GetAllWallets;
 using OnlineWallet.Application.Wallets.Queries.GetWallet;
 using OnlineWallet.Domain.Entities;
 using OnlineWallet.WebApi.Extensions;
@@ -52,6 +52,16 @@ namespace OnlineWallet.WebApi.Controllers
         {
             var userId = HttpContext.GetUserId();
             var query = new GetWalletQuery(userId,walletCode);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpGet("get-all-wallets")]
+        public async Task<IActionResult> GetAllWallets()
+        {
+            var userId = HttpContext.GetUserId();
+            var query = new GetAllWalletsQuery(userId);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
