@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OnlineWallet.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class initialMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,7 +35,7 @@ namespace OnlineWallet.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     WalletName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     WalletCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Currency = table.Column<int>(type: "int", nullable: false),
                     Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false)
@@ -60,10 +60,10 @@ namespace OnlineWallet.Infrastructure.Migrations
                     ReceiverUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SenderWalletCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ReceiverWalletCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Currency = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    WalletId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    WalletId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,7 +72,8 @@ namespace OnlineWallet.Infrastructure.Migrations
                         name: "FK_Transactions_Wallets_WalletId",
                         column: x => x.WalletId,
                         principalTable: "Wallets",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

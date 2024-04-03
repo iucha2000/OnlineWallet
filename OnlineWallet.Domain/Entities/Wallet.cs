@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineWallet.Domain.Common;
+using OnlineWallet.Domain.Enums;
 
 namespace OnlineWallet.Domain.Entities
 {
@@ -11,7 +12,7 @@ namespace OnlineWallet.Domain.Entities
     {
         public string WalletName { get; set; }
         public string WalletCode { get; set; }
-        public string Currency { get; set; }
+        public CurrencyCode Currency { get; set; }
         public decimal Balance { get; set; }
         public Guid UserId { get; set; }
         public bool IsDefault { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineWallet.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace OnlineWallet.Application.Common.Models.Transaction
         public Guid ReceiverUserId { get; set; }
         public string SenderWalletCode { get; set; }
         public string ReceiverWalletCode { get; set; }
-        public string Currency { get; set; }
+        public CurrencyCode Currency { get; set; }
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
     }

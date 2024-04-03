@@ -5,8 +5,8 @@ using OnlineWallet.Application.Common.Models.Transaction;
 using OnlineWallet.Application.Transactions.Commands.AddTransaction;
 using OnlineWallet.Application.Transactions.Queries.GetAllTransactions;
 using OnlineWallet.Application.Transactions.Queries.GetTransaction;
+using OnlineWallet.Domain.Enums;
 using OnlineWallet.WebApi.Extensions;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace OnlineWallet.WebApi.Controllers
 {
@@ -16,7 +16,7 @@ namespace OnlineWallet.WebApi.Controllers
 
         [Authorize]
         [HttpPost("transfer-funds")]
-        public async Task<IActionResult> TransferFunds()
+        public async Task<IActionResult> TransferFunds(CurrencyCode code)
         {
 
             return Ok();

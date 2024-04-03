@@ -2,6 +2,7 @@
 using OnlineWallet.Domain.Common;
 using OnlineWallet.Domain.Common.Interfaces;
 using OnlineWallet.Domain.Entities;
+using OnlineWallet.Domain.Enums;
 using OnlineWallet.Domain.Exceptions;
 
 namespace OnlineWallet.Application.Wallets.Commands.UpdateWallet
@@ -43,9 +44,9 @@ namespace OnlineWallet.Application.Wallets.Commands.UpdateWallet
                 updatedWallet.WalletName = request.WalletName;
             }
 
-            if (!string.IsNullOrWhiteSpace(request.Currency))
+            if (request.Currency != null)
             {
-                updatedWallet.Currency = request.Currency;
+                updatedWallet.Currency = (CurrencyCode)request.Currency;
             }
 
             if (request.IsDefault != null)

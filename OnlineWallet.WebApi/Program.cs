@@ -1,11 +1,7 @@
 
 using OnlineWallet.Application;
 using OnlineWallet.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using OnlineWallet.Infrastructure.Persistence;
 using OnlineWallet.WebApi.Extensions;
-using System.Reflection;
 using OnlineWallet.WebApi.Middlewares;
 
 namespace OnlineWallet.WebApi
@@ -20,7 +16,7 @@ namespace OnlineWallet.WebApi
 
             builder.Services.AddUILayer();
             builder.Services.AddApplicationLayer();
-            builder.Services.AddInfrastructureLayer(builder.Configuration);      
+            builder.Services.AddInfrastructureLayer(builder.Configuration);
 
             var app = builder.Build();
 

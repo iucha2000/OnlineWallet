@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineWallet.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace OnlineWallet.Application.Common.Models.Wallet
         public string WalletName { get; set; }
 
         [Required]
-        public string Currency { get; set; }
+        public CurrencyCode Currency { get; set; }
 
         [Required]
         public bool IsDefault { get; set; }

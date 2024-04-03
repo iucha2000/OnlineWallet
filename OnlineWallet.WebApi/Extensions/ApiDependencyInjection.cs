@@ -1,5 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 using OnlineWallet.WebApi.Middlewares;
+using System.Text.Json.Serialization;
 
 namespace OnlineWallet.WebApi.Extensions
 {
@@ -9,7 +10,10 @@ namespace OnlineWallet.WebApi.Extensions
         {
             services.AddTransient<ExceptionMiddleware>();
 
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c => {
