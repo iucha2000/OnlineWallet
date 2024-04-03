@@ -28,7 +28,7 @@ namespace OnlineWallet.Application.Wallets.Queries.GetWallet
                 throw new EntityNotFoundException(ErrorMessages.AuthenticatedUserNotFound);
             }
 
-            var user = await _userRepository.GetAsync(x => x.Id == request.UserId, includeProperties: "Wallets");
+            var user = await _userRepository.GetAsync(x => x.Id == request.UserId);
             if (user.Value == null)
             {
                 throw new EntityNotFoundException(ErrorMessages.UserNotFound);
@@ -47,8 +47,8 @@ namespace OnlineWallet.Application.Wallets.Queries.GetWallet
                 {
                     SenderUserId = transaction.SenderUserId,
                     ReceiverUserId = transaction.ReceiverUserId,
-                    SenderWalletId = transaction.SenderWalletId,
-                    ReceiverWalletId = transaction.ReceiverWalletId,
+                    SenderWalletCode = transaction.SenderWalletCode,
+                    ReceiverWalletCode = transaction.ReceiverWalletCode,
                     Currency = transaction.Currency,
                     Amount = transaction.Amount,
                     Date = transaction.Date,

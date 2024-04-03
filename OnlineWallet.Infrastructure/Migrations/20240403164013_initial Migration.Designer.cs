@@ -12,8 +12,8 @@ using OnlineWallet.Infrastructure.Persistence;
 namespace OnlineWallet.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240331130247_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240403164013_initial Migration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,14 +44,16 @@ namespace OnlineWallet.Infrastructure.Migrations
                     b.Property<Guid>("ReceiverUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ReceiverWalletId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ReceiverWalletCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("SenderUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SenderWalletId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("SenderWalletCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("WalletId")
                         .HasColumnType("uniqueidentifier");

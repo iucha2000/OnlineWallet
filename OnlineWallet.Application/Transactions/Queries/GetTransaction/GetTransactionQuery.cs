@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using OnlineWallet.Application.Common.Models.Transaction;
+using OnlineWallet.Domain.Common;
 
 namespace OnlineWallet.Application.Transactions.Queries.GetTransaction
 {
-    internal class GetTransactionQuery
-    {
-    }
+    public record GetTransactionQuery(Guid UserId, Guid TransactionId) : IRequest<Result<GetTransactionModel>>;
 }

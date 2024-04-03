@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using OnlineWallet.Application.Common.Models.Transaction;
 using OnlineWallet.Application.Common.Models.User;
 using OnlineWallet.Application.Common.Models.Wallet;
 using OnlineWallet.Domain.Common;
@@ -25,12 +26,29 @@ namespace OnlineWallet.Application.Users.Queries.GetAllUsers
             var users = await _userRepository.GetAllAsync();
 
             var usersList = new List<GetUserModel>();
-            foreach (var user in users.Value)
+            foreach (User user in users.Value)
             {
-                var wallets = await _walletRepository.GetListAsync(x=> x.UserId == user.Id);
+                var wallets = await _walletRepository.GetListAsync(x=> x.UserId == user.Id, includeProperties: "TransactionHistory");
+
                 var walletList = new List<GetWalletModel>();
-                foreach(var wallet in wallets.Value)
+                foreach(Wallet wallet in wallets.Value)
                 {
+                    var walletTransactions = new List<GetTransactionModel>();
+                    foreach(Transaction transaction in wallet.TransactionHistory)
+                    {
+                        var transactionModel = new GetTransactionModel
+                        {
+                            SenderUserId = transaction.SenderUserId,
+                            ReceiverUserId = transaction.ReceiverUserId,
+                            SenderWalletCode = transaction.SenderWalletCode,
+                            ReceiverWalletCode = transaction.ReceiverWalletCode,
+                            Currency = transaction.Currency,
+                            Amount = transaction.Amount,
+                            Date = transaction.Date,
+                        };
+                        walletTransactions.Add(transactionModel);
+                    }
+
                     var walletModel = new GetWalletModel
                     {
                         WalletName = wallet.WalletName,
@@ -38,8 +56,7 @@ namespace OnlineWallet.Application.Users.Queries.GetAllUsers
                         Currency = wallet.Currency,
                         Balance = wallet.Balance,
                         IsDefault = wallet.IsDefault,
-                        //TODO add transactions
-                        TransactionHistory = null
+                        TransactionHistory = walletTransactions
                     };
                     walletList.Add(walletModel);
                 }

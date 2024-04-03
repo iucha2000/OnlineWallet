@@ -1,6 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OnlineWallet.Application.Common.Models.Transaction;
+using OnlineWallet.Application.Transactions.Commands.AddTransaction;
+using OnlineWallet.Application.Transactions.Queries.GetAllTransactions;
+using OnlineWallet.Application.Transactions.Queries.GetTransaction;
+using OnlineWallet.WebApi.Extensions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace OnlineWallet.WebApi.Controllers
 {
@@ -9,19 +15,51 @@ namespace OnlineWallet.WebApi.Controllers
         public TransactionController(ISender mediator) : base(mediator) { }
 
         [Authorize]
-        [HttpPost("add-transaction")]
-        public async Task<IActionResult> AddTransaction()
+        [HttpPost("transfer-funds")]
+        public async Task<IActionResult> TransferFunds()
         {
 
             return Ok();
         }
 
         [Authorize]
-        [HttpGet("get-transaction-by-id")]
-        public async Task<IActionResult> GetTransaction()
+        [HttpPost("deposit-funds")]
+        public async Task<IActionResult> DepositFunds([FromForm] DepositFundsTransactionModel model)
         {
+            var userId = HttpContext.GetUserId();
+            var command = new AddDepositFundsTransaction(userId, model.WalletCode, model.Currency, model.Amount);
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
 
-            return Ok();
+        [Authorize]
+        [HttpPost("withdraw-funds")]
+        public async Task<IActionResult> AddWithdrawFundsTransaction([FromForm] WithdrawFundsTransactionModel model)
+        {
+            var userId = HttpContext.GetUserId();
+            var command = new AddWithdrawFundsTransaction(userId, model.WalletCode, model.Currency, model.Amount);
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpGet("get-transaction-by-id")]
+        public async Task<IActionResult> GetTransaction(Guid transactionId)
+        {
+            var userId = HttpContext.GetUserId();
+            var query = new GetTransactionQuery(userId, transactionId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpGet("get-all-transactions")]
+        public async Task<IActionResult> GetAllTransactions()
+        {
+            var userId = HttpContext.GetUserId();
+            var query = new GetAllTransactionsQuery(userId);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
     }
 }

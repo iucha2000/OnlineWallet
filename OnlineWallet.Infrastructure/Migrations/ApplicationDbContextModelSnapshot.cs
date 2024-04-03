@@ -41,16 +41,18 @@ namespace OnlineWallet.Infrastructure.Migrations
                     b.Property<Guid>("ReceiverUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ReceiverWalletId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ReceiverWalletCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("SenderUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SenderWalletId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("SenderWalletCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("WalletId")
+                    b.Property<Guid>("WalletId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -132,7 +134,9 @@ namespace OnlineWallet.Infrastructure.Migrations
                 {
                     b.HasOne("OnlineWallet.Domain.Entities.Wallet", null)
                         .WithMany("TransactionHistory")
-                        .HasForeignKey("WalletId");
+                        .HasForeignKey("WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("OnlineWallet.Domain.Entities.Wallet", b =>

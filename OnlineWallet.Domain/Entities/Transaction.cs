@@ -11,10 +11,11 @@ namespace OnlineWallet.Domain.Entities
     {
         public Guid SenderUserId { get; set; }
         public Guid ReceiverUserId { get; set; }
-        public Guid SenderWalletId { get; set; }
-        public Guid ReceiverWalletId { get; set; }
+        public string SenderWalletCode { get; set; }
+        public string ReceiverWalletCode { get; set; }
         public string Currency { get; set; }
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
+        public Guid WalletId { get; set; }
     }
 }

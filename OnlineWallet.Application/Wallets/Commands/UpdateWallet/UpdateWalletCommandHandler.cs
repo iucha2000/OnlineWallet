@@ -50,6 +50,14 @@ namespace OnlineWallet.Application.Wallets.Commands.UpdateWallet
 
             if (request.IsDefault != null)
             {
+                if (request.IsDefault == true)
+                {
+                    foreach (var wallet in user.Value.Wallets)
+                    {
+                        wallet.IsDefault = false;
+                    }
+                }
+
                 updatedWallet.IsDefault = (bool)request.IsDefault;
             }
 

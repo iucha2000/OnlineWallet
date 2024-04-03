@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using OnlineWallet.Application.Common.Models.Transaction;
 using OnlineWallet.Application.Common.Models.Wallet;
 using OnlineWallet.Domain.Common;
 using OnlineWallet.Domain.Common.Interfaces;
@@ -27,16 +28,33 @@ namespace OnlineWallet.Application.Wallets.Queries.GetAllWallets
                 throw new EntityNotFoundException(ErrorMessages.AuthenticatedUserNotFound);
             }
 
-            var user = await _userRepository.GetAsync(x => x.Id == request.UserId, includeProperties: "Wallets");
+            var user = await _userRepository.GetAsync(x => x.Id == request.UserId);
             if (user.Value == null)
             {
                 throw new EntityNotFoundException(ErrorMessages.UserNotFound);
             }
 
-            var wallets = user.Value.Wallets.ToList();
+            var wallets = await _walletRepository.GetListAsync(x=> x.UserId == user.Value.Id, includeProperties: "TransactionHistory");
+
             var walletsList = new List<GetWalletModel>();
-            foreach (var wallet in wallets)
+            foreach (var wallet in wallets.Value)
             {
+                var transactionsList = new List<GetTransactionModel>();
+                foreach (Transaction transaction in wallet.TransactionHistory)
+                {
+                    var transactionModel = new GetTransactionModel
+                    {
+                        SenderUserId = transaction.SenderUserId,
+                        ReceiverUserId = transaction.ReceiverUserId,
+                        SenderWalletCode = transaction.SenderWalletCode,
+                        ReceiverWalletCode = transaction.ReceiverWalletCode,
+                        Currency = transaction.Currency,
+                        Amount = transaction.Amount,
+                        Date = transaction.Date,
+                    };
+                    transactionsList.Add(transactionModel);
+                }
+
                 var walletModel = new GetWalletModel
                 {
                     WalletName = wallet.WalletName,
@@ -44,8 +62,7 @@ namespace OnlineWallet.Application.Wallets.Queries.GetAllWallets
                     Currency = wallet.Currency,
                     Balance = wallet.Balance,
                     IsDefault = wallet.IsDefault,
-                    //TODO add transactions
-                    TransactionHistory = null
+                    TransactionHistory = transactionsList
                 };
                 walletsList.Add(walletModel);
             }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OnlineWallet.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,8 +58,8 @@ namespace OnlineWallet.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SenderUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReceiverUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SenderWalletId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReceiverWalletId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SenderWalletCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReceiverWalletCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
