@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineWallet.Application.Common.Handlers
+﻿namespace OnlineWallet.Application.Common.Handlers
 {
     public interface IPasswordHandler
     {

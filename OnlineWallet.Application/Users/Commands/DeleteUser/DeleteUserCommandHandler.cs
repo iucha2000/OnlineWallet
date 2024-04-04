@@ -20,7 +20,6 @@ namespace OnlineWallet.Application.Users.Commands.DeleteUser
         public async Task<Result> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByIdAsync(request.UserId);
-
             if (user.Value == null)
             {
                 throw new EntityNotFoundException(ErrorMessages.UserNotFound);

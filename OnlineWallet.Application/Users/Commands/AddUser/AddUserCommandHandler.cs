@@ -24,7 +24,6 @@ namespace OnlineWallet.Application.Users.Commands.AddUser
         public async Task<Result> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
             var existingUser = await _userRepository.GetAsync(x => x.Email == request.Email);
-
             if (existingUser.Value != null)
             {
                 throw new EntityAlreadyExistsException(ErrorMessages.UserAlreadyExists);

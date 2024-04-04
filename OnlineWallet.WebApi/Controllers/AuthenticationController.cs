@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineWallet.Application.Authentication.Commands.RegisterUser;
 using OnlineWallet.Application.Authentication.Queries.LoginUser;
-using OnlineWallet.Application.Common.Models.Authentication;
+using OnlineWallet.Application.Common.DTOs.Authentication;
+using OnlineWallet.WebApi.Extensions;
 
 namespace OnlineWallet.WebApi.Controllers
 {
@@ -13,8 +14,8 @@ namespace OnlineWallet.WebApi.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterModel registerModel)
         {
-            var command = new RegisterUserCommand(registerModel.FirstName, registerModel.LastName, registerModel.EmailAddress, registerModel.Password);
-
+            var userId = HttpContext.GetUserId();
+            var command = new RegisterUserCommand(userId, registerModel.FirstName, registerModel.LastName, registerModel.EmailAddress, registerModel.Password);
             var result = await _mediator.Send(command);
             
             if(result.Success)
@@ -30,8 +31,8 @@ namespace OnlineWallet.WebApi.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginModel loginUserModel)
         {
-            var query = new LoginUserQuery(loginUserModel.EmailAddress, loginUserModel.Password);
-
+            var userId = HttpContext.GetUserId();
+            var query = new LoginUserQuery(userId, loginUserModel.EmailAddress, loginUserModel.Password);
             var result = await _mediator.Send(query);
 
             if(result.Success)

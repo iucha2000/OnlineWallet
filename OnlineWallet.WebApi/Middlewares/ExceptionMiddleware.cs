@@ -36,6 +36,7 @@ namespace OnlineWallet.WebApi.Middlewares
                     code = HttpStatusCode.Unauthorized;
                     break;
                 case ArgumentException
+                or NoEnoughBalanceException
                 or InvalidOperationException:
                     code = HttpStatusCode.BadRequest;
                     break;

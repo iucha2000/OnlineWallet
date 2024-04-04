@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineWallet.Application.Common.Models.User;
+using OnlineWallet.Application.Common.DTOs.User;
 using OnlineWallet.Application.Users.Commands.AddUser;
 using OnlineWallet.Application.Users.Commands.DeleteUser;
 using OnlineWallet.Application.Users.Commands.UpdateUser;

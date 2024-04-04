@@ -24,7 +24,6 @@ namespace OnlineWallet.Application.Users.Commands.UpdateUser
         public async Task<Result> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var existingUser = await _userRepository.GetByIdAsync(request.UserId);
-
             if (existingUser.Value == null)
             {
                 throw new EntityNotFoundException(ErrorMessages.UserNotFound);

@@ -1,11 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineWallet.Application.Common.Models.Transaction;
+using OnlineWallet.Application.Common.DTOs.Transaction;
 using OnlineWallet.Application.Transactions.Commands.AddTransaction;
 using OnlineWallet.Application.Transactions.Queries.GetAllTransactions;
 using OnlineWallet.Application.Transactions.Queries.GetTransaction;
-using OnlineWallet.Domain.Enums;
 using OnlineWallet.WebApi.Extensions;
 
 namespace OnlineWallet.WebApi.Controllers

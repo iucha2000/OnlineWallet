@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using OnlineWallet.Domain.Common;
 using OnlineWallet.Domain.Common.Interfaces;
 using OnlineWallet.Domain.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace OnlineWallet.Infrastructure.Persistence
 {

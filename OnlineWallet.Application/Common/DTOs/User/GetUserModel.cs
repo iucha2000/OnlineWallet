@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OnlineWallet.Application.Common.Models.Wallet;
+﻿using OnlineWallet.Application.Common.DTOs.Wallet;
 
-namespace OnlineWallet.Application.Common.Models.User
+namespace OnlineWallet.Application.Common.DTOs.User
 {
     public class GetUserModel
     {

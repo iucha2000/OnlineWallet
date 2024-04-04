@@ -28,7 +28,6 @@ namespace OnlineWallet.Application.Wallets.Commands.AddWallet
             }
 
             var user = await _userRepository.GetAsync(x=> x.Id == request.UserId, includeProperties: "Wallets");
-
             if(user.Value == null)
             {
                 throw new EntityNotFoundException(ErrorMessages.UserNotFound);

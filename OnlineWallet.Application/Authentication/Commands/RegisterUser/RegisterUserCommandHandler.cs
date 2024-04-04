@@ -25,8 +25,12 @@ namespace OnlineWallet.Application.Authentication.Commands.RegisterUser
 
         public async Task<Result<string>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            var existingUser = await _userRepository.GetAsync(x => x.Email == request.Email);
+            if(request.UserId != Guid.Empty)
+            {
+                throw new UserIsAuthenticatedException(ErrorMessages.UserIsAlreadyAuthenticated);
+            }
 
+            var existingUser = await _userRepository.GetAsync(x => x.Email == request.Email);
             if (existingUser.Value != null)
             {
                 throw new EntityAlreadyExistsException(ErrorMessages.EmailAlreadyExists);

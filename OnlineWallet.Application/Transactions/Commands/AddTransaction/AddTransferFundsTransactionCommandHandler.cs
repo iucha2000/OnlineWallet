@@ -13,9 +13,9 @@ namespace OnlineWallet.Application.Transactions.Commands.AddTransaction
         private readonly IGenericRepository<Wallet> _walletRepository;
         private readonly IGenericRepository<Transaction> _transactionRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IBalanceManager _balanceManager;
+        private readonly IBalanceManagerService _balanceManager;
 
-        public AddTransferFundsTransactionCommandHandler(IGenericRepository<Transaction> transactionRepository, IGenericRepository<Wallet> walletRepository, IGenericRepository<User> userRepository, IUnitOfWork unitOfWork, IBalanceManager balanceManager)
+        public AddTransferFundsTransactionCommandHandler(IGenericRepository<Transaction> transactionRepository, IGenericRepository<Wallet> walletRepository, IGenericRepository<User> userRepository, IUnitOfWork unitOfWork, IBalanceManagerService balanceManager)
         {
             _userRepository = userRepository;
             _walletRepository = walletRepository;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineWallet.Domain.Common
+﻿namespace OnlineWallet.Domain.Common
 {
     public abstract class BaseEntity
     {

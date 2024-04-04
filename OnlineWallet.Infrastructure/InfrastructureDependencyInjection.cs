@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using OnlineWallet.Application.Common.Handlers;
 using OnlineWallet.Application.Services;
+using OnlineWallet.Application.Services.Models;
 using OnlineWallet.Domain.Common.Interfaces;
 using OnlineWallet.Infrastructure.Handlers;
 using OnlineWallet.Infrastructure.Persistence;
@@ -19,7 +20,15 @@ namespace OnlineWallet.Infrastructure
         {
             services.AddAuthentication(configuration);
             services.AddPersistence(configuration);
-            services.AddSingleton<IBalanceManager, BalanceManager>();
+
+            services.AddSingleton<IBalanceManagerService, BalanceManagerService>();
+
+            services.AddSingleton<IExchangeRateService, ExchangeRateService>();
+            services.Configure<ExchangeRatesConfigModel>(configuration.GetSection("ExchangeRateOptions"));
+
+            services.AddMemoryCache();
+            services.AddSingleton<ICacheService, MemoryCacheService>();
+            services.Configure<CachingOptionsModel>(configuration.GetSection("MemoryCacheOptions"));
 
             return services;
         }

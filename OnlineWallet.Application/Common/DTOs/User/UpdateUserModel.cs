@@ -1,13 +1,8 @@
 ﻿using OnlineWallet.Domain.Exceptions;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OnlineWallet.Application.Common.Models.User
+namespace OnlineWallet.Application.Common.DTOs.User
 {
     public class UpdateUserModel
     {

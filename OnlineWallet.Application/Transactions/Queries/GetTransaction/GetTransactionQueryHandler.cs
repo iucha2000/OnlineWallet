@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using OnlineWallet.Application.Common.Models.Transaction;
+using OnlineWallet.Application.Common.DTOs.Transaction;
 using OnlineWallet.Domain.Common;
 using OnlineWallet.Domain.Common.Interfaces;
 using OnlineWallet.Domain.Entities;

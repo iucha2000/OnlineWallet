@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using OnlineWallet.Application.Services;
 using OnlineWallet.Domain.Common;
 using OnlineWallet.Domain.Common.Interfaces;
 using OnlineWallet.Domain.Entities;
@@ -12,12 +13,14 @@ namespace OnlineWallet.Application.Wallets.Commands.UpdateWallet
         private readonly IGenericRepository<Wallet> _walletRepository;
         private readonly IGenericRepository<User> _userRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IBalanceManagerService _balanceManagerService;
 
-        public UpdateWalletCommandHandler(IGenericRepository<Wallet> walletRepository, IGenericRepository<User> userRepository, IUnitOfWork unitOfWork)
+        public UpdateWalletCommandHandler(IGenericRepository<Wallet> walletRepository, IGenericRepository<User> userRepository, IUnitOfWork unitOfWork, IBalanceManagerService balanceManagerService)
         {
             _walletRepository = walletRepository;
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
+            _balanceManagerService = balanceManagerService;
         }
 
         public async Task<Result> Handle(UpdateWalletCommand request, CancellationToken cancellationToken)
@@ -46,7 +49,11 @@ namespace OnlineWallet.Application.Wallets.Commands.UpdateWallet
 
             if (request.Currency != null)
             {
+                var oldCurrency = updatedWallet.Currency;
+                var oldBalance = updatedWallet.Balance;
                 updatedWallet.Currency = (CurrencyCode)request.Currency;
+                updatedWallet.Balance = 0;
+                await _balanceManagerService.AddFunds(updatedWallet, oldCurrency, oldBalance);
             }
 
             if (request.IsDefault != null)

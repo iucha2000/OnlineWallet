@@ -13,9 +13,9 @@ namespace OnlineWallet.Application.Transactions.Commands.AddTransaction
         private readonly IGenericRepository<Wallet> _walletRepository;
         private readonly IGenericRepository<Transaction> _transactionRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IBalanceManager _balanceManager;
+        private readonly IBalanceManagerService _balanceManager;
 
-        public AddDepositFundsTransactionCommandHandler(IGenericRepository<User> userRepository, IGenericRepository<Wallet> walletRepository, IGenericRepository<Transaction> transactionRepository, IUnitOfWork unitOfWork, IBalanceManager balanceManager)
+        public AddDepositFundsTransactionCommandHandler(IGenericRepository<User> userRepository, IGenericRepository<Wallet> walletRepository, IGenericRepository<Transaction> transactionRepository, IUnitOfWork unitOfWork, IBalanceManagerService balanceManager)
         {
             _userRepository = userRepository;
             _walletRepository = walletRepository;
@@ -51,7 +51,6 @@ namespace OnlineWallet.Application.Transactions.Commands.AddTransaction
 
             var transaction = new Transaction
             {
-                //TODO fix static values
                 SenderUserId = Guid.Empty,
                 ReceiverUserId = request.UserId,
                 SenderWalletCode = "DEPOSIT OPERATION",

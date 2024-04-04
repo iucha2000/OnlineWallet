@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using OnlineWallet.Application.Common.Models.Transaction;
-using OnlineWallet.Application.Common.Models.Wallet;
+using OnlineWallet.Application.Common.DTOs.Transaction;
+using OnlineWallet.Application.Common.DTOs.Wallet;
 using OnlineWallet.Domain.Common;
 using OnlineWallet.Domain.Common.Interfaces;
 using OnlineWallet.Domain.Entities;
@@ -62,7 +62,7 @@ namespace OnlineWallet.Application.Wallets.Queries.GetAllWallets
                     Currency = wallet.Currency,
                     Balance = wallet.Balance,
                     IsDefault = wallet.IsDefault,
-                    Transaction = transactionsList
+                    Transactions = transactionsList
                 };
                 walletsList.Add(walletModel);
             }

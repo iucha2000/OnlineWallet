@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using OnlineWallet.Application.Common.Models.Wallet;
+using OnlineWallet.Application.Common.DTOs.Wallet;
 using OnlineWallet.Domain.Common;
 
 namespace OnlineWallet.Application.Wallets.Queries.GetAllWallets

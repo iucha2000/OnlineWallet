@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using OnlineWallet.Application.Common.Models.Transaction;
-using OnlineWallet.Application.Common.Models.User;
-using OnlineWallet.Application.Common.Models.Wallet;
+using OnlineWallet.Application.Common.DTOs.Transaction;
+using OnlineWallet.Application.Common.DTOs.User;
+using OnlineWallet.Application.Common.DTOs.Wallet;
 using OnlineWallet.Domain.Common;
 using OnlineWallet.Domain.Common.Interfaces;
 using OnlineWallet.Domain.Entities;
@@ -28,13 +28,13 @@ namespace OnlineWallet.Application.Users.Queries.GetAllUsers
             var usersList = new List<GetUserModel>();
             foreach (User user in users.Value)
             {
-                var wallets = await _walletRepository.GetListAsync(x=> x.UserId == user.Id, includeProperties: "Transactions");
+                var wallets = await _walletRepository.GetListAsync(x => x.UserId == user.Id, includeProperties: "Transactions");
 
                 var walletList = new List<GetWalletModel>();
-                foreach(Wallet wallet in wallets.Value)
+                foreach (Wallet wallet in wallets.Value)
                 {
                     var walletTransactions = new List<GetTransactionModel>();
-                    foreach(Transaction transaction in wallet.Transactions)
+                    foreach (Transaction transaction in wallet.Transactions)
                     {
                         var transactionModel = new GetTransactionModel
                         {
@@ -56,7 +56,7 @@ namespace OnlineWallet.Application.Users.Queries.GetAllUsers
                         Currency = wallet.Currency,
                         Balance = wallet.Balance,
                         IsDefault = wallet.IsDefault,
-                        Transaction = walletTransactions
+                        Transactions = walletTransactions
                     };
                     walletList.Add(walletModel);
                 }

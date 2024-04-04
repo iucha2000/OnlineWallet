@@ -1,12 +1,7 @@
 ﻿using OnlineWallet.Domain.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OnlineWallet.Application.Common.Models.Wallet
+namespace OnlineWallet.Application.Common.DTOs.Wallet
 {
     public class AddWalletModel
     {
