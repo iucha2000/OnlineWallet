@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineWallet.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineWallet.Infrastructure.Persistence
 {
@@ -15,5 +10,13 @@ namespace OnlineWallet.Infrastructure.Persistence
         DbSet<User> Users { get; set; }
         DbSet<Wallet> Wallets { get; set; }
         DbSet<Transaction> Transactions { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Wallet>()
+                        .HasMany(left => left.Transactions)
+                        .WithMany(right => right.Wallets)
+                        .UsingEntity(join => join.ToTable("WalletTransactions"));
+        }
     }
 }

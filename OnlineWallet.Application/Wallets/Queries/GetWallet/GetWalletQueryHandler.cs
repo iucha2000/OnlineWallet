@@ -34,14 +34,14 @@ namespace OnlineWallet.Application.Wallets.Queries.GetWallet
                 throw new EntityNotFoundException(ErrorMessages.UserNotFound);
             }
 
-            var wallet = await _walletRepository.GetAsync(x => x.WalletCode == request.WalletCode && x.UserId == user.Value.Id, includeProperties: "TransactionHistory");
+            var wallet = await _walletRepository.GetAsync(x => x.WalletCode == request.WalletCode && x.UserId == user.Value.Id, includeProperties: "Transactions");
             if(wallet.Value == null)
             {
                 throw new EntityNotFoundException(ErrorMessages.WalletNotFound);
             }
 
             var walletTransactions = new List<GetTransactionModel>();
-            foreach (Transaction transaction in wallet.Value.TransactionHistory)
+            foreach (Transaction transaction in wallet.Value.Transactions)
             {
                 var walletTransaction = new GetTransactionModel
                 {
@@ -63,7 +63,7 @@ namespace OnlineWallet.Application.Wallets.Queries.GetWallet
                 Currency = wallet.Value.Currency,
                 Balance = wallet.Value.Balance,
                 IsDefault = wallet.Value.IsDefault,
-                TransactionHistory = walletTransactions
+                Transaction = walletTransactions
             };
 
             return Result<GetWalletModel>.Succeed(walletModel);

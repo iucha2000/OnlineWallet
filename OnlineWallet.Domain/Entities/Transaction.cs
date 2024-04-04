@@ -17,6 +17,6 @@ namespace OnlineWallet.Domain.Entities
         public CurrencyCode Currency { get; set; }
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
-        public Guid WalletId { get; set; }
+        public IEnumerable<Wallet> Wallets { get; set; }
     }
 }

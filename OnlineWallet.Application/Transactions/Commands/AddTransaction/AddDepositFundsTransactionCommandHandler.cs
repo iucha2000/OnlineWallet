@@ -39,8 +39,8 @@ namespace OnlineWallet.Application.Transactions.Commands.AddTransaction
 
             //If given WalletCode is null, we take user's default wallet for this transaction, else, we find wallet by given WalletCode and use it
             var wallet = request.WalletCode == null
-                ? await _walletRepository.GetAsync(x => x.IsDefault == true && x.UserId == user.Value.Id, includeProperties: "TransactionHistory")
-                : await _walletRepository.GetAsync(x => x.WalletCode == request.WalletCode, includeProperties: "TransactionHistory");
+                ? await _walletRepository.GetAsync(x => x.IsDefault == true && x.UserId == user.Value.Id, includeProperties: "Transactions")
+                : await _walletRepository.GetAsync(x => x.WalletCode == request.WalletCode, includeProperties: "Transactions");
 
             if (wallet.Value == null)
             {
@@ -59,10 +59,8 @@ namespace OnlineWallet.Application.Transactions.Commands.AddTransaction
                 Currency = request.Currency,
                 Amount = request.Amount,
                 Date = DateTime.Now,
-                WalletId = wallet.Value.Id,
+                Wallets = new List<Wallet> { wallet.Value },
             };
-
-            wallet.Value.TransactionHistory.ToList().Add(transaction);
 
             await _transactionRepository.InsertAsync(transaction);
             await _unitOfWork.CommitAsync();

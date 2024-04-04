@@ -12,8 +12,8 @@ using OnlineWallet.Infrastructure.Persistence;
 namespace OnlineWallet.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240403221557_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20240404123329_TransactionWallets table modified")]
+    partial class TransactionWalletstablemodified
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,12 +54,7 @@ namespace OnlineWallet.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("WalletId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("WalletId");
 
                     b.ToTable("Transactions");
                 });
@@ -131,13 +126,19 @@ namespace OnlineWallet.Infrastructure.Migrations
                     b.ToTable("Wallets");
                 });
 
-            modelBuilder.Entity("OnlineWallet.Domain.Entities.Transaction", b =>
+            modelBuilder.Entity("TransactionWallet", b =>
                 {
-                    b.HasOne("OnlineWallet.Domain.Entities.Wallet", null)
-                        .WithMany("TransactionHistory")
-                        .HasForeignKey("WalletId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("TransactionsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("WalletsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("TransactionsId", "WalletsId");
+
+                    b.HasIndex("WalletsId");
+
+                    b.ToTable("WalletTransactions", (string)null);
                 });
 
             modelBuilder.Entity("OnlineWallet.Domain.Entities.Wallet", b =>
@@ -149,14 +150,24 @@ namespace OnlineWallet.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TransactionWallet", b =>
+                {
+                    b.HasOne("OnlineWallet.Domain.Entities.Transaction", null)
+                        .WithMany()
+                        .HasForeignKey("TransactionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnlineWallet.Domain.Entities.Wallet", null)
+                        .WithMany()
+                        .HasForeignKey("WalletsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("OnlineWallet.Domain.Entities.User", b =>
                 {
                     b.Navigation("Wallets");
-                });
-
-            modelBuilder.Entity("OnlineWallet.Domain.Entities.Wallet", b =>
-                {
-                    b.Navigation("TransactionHistory");
                 });
 #pragma warning restore 612, 618
         }

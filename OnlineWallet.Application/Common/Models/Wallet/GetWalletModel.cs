@@ -15,6 +15,6 @@ namespace OnlineWallet.Application.Common.Models.Wallet
         public CurrencyCode Currency { get; set; }
         public decimal Balance { get; set; }
         public bool IsDefault { get; set; }
-        public IEnumerable<GetTransactionModel> TransactionHistory { get; set; }
+        public IEnumerable<GetTransactionModel> Transaction { get; set; }
     }
 }

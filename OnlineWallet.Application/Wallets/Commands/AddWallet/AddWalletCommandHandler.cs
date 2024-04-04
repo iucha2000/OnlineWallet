@@ -50,7 +50,7 @@ namespace OnlineWallet.Application.Wallets.Commands.AddWallet
                 Balance = 0,
                 UserId = request.UserId,
                 IsDefault = request.IsDefault,
-                TransactionHistory = new List<Transaction>()
+                Transactions = new List<Transaction>()
             };
 
             user.Value.Wallets.ToList().Add(newWallet);
