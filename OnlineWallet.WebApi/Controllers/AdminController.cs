@@ -10,9 +10,9 @@ using OnlineWallet.Application.Users.Queries.GetUser;
 
 namespace OnlineWallet.WebApi.Controllers
 {
-    public class UserController : BaseController
+    public class AdminController : BaseController
     {
-        public UserController(ISender mediator) : base(mediator) { }
+        public AdminController(ISender mediator) : base(mediator) { }
 
         [Authorize(Roles = "Admin")]
         [HttpPost("add-user")]

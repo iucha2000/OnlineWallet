@@ -1,4 +1,3 @@
-
 using OnlineWallet.Application;
 using OnlineWallet.Infrastructure;
 using OnlineWallet.WebApi.Extensions;
