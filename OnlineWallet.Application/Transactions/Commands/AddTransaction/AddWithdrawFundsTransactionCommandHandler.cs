@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using OnlineWallet.Application.Services;
 using OnlineWallet.Domain.Common;
 using OnlineWallet.Domain.Common.Interfaces;
 using OnlineWallet.Domain.Entities;
@@ -12,13 +13,15 @@ namespace OnlineWallet.Application.Transactions.Commands.AddTransaction
         private readonly IGenericRepository<Wallet> _walletRepository;
         private readonly IGenericRepository<Transaction> _transactionRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IBalanceManager _balanceManager;
 
-        public AddWithdrawFundsTransactionCommandHandler(IGenericRepository<User> userRepository, IGenericRepository<Wallet> walletRepository, IGenericRepository<Transaction> transactionRepository, IUnitOfWork unitOfWork)
+        public AddWithdrawFundsTransactionCommandHandler(IGenericRepository<User> userRepository, IGenericRepository<Wallet> walletRepository, IGenericRepository<Transaction> transactionRepository, IUnitOfWork unitOfWork, IBalanceManager balanceManager)
         {
             _userRepository = userRepository;
             _walletRepository = walletRepository;
             _transactionRepository = transactionRepository;
             _unitOfWork = unitOfWork;
+            _balanceManager = balanceManager;
         }
 
         public async Task<Result<string>> Handle(AddWithdrawFundsTransaction request, CancellationToken cancellationToken)
@@ -44,11 +47,7 @@ namespace OnlineWallet.Application.Transactions.Commands.AddTransaction
                 throw new EntityNotFoundException(ErrorMessages.UserHasNoWallets);
             }
 
-            //TODO convert currency
-            if(wallet.Value.Balance < request.Amount)
-            {
-                throw new EntityNotFoundException(ErrorMessages.NoEnoughBalance);
-            }
+            await _balanceManager.SubtractFunds(wallet.Value, request.Currency, request.Amount);
 
             var transaction = new Transaction
             {
@@ -59,12 +58,10 @@ namespace OnlineWallet.Application.Transactions.Commands.AddTransaction
                 ReceiverWalletCode = "WITHDRAW OPERATION",
                 Currency = request.Currency,
                 Amount = request.Amount,
-                Date = DateTime.UtcNow,
+                Date = DateTime.Now,
                 WalletId = wallet.Value.Id,
             };
 
-            //TODO adjust transfer by currency values
-            wallet.Value.Balance -= request.Amount;
             wallet.Value.TransactionHistory.ToList().Add(transaction);
 
             await _transactionRepository.InsertAsync(transaction);

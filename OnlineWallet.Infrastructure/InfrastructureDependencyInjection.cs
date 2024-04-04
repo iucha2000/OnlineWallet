@@ -4,14 +4,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using OnlineWallet.Application.Common.Handlers;
+using OnlineWallet.Application.Services;
 using OnlineWallet.Domain.Common.Interfaces;
 using OnlineWallet.Infrastructure.Handlers;
 using OnlineWallet.Infrastructure.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using OnlineWallet.Infrastructure.Services;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineWallet.Infrastructure
 {
@@ -21,6 +19,7 @@ namespace OnlineWallet.Infrastructure
         {
             services.AddAuthentication(configuration);
             services.AddPersistence(configuration);
+            services.AddSingleton<IBalanceManager, BalanceManager>();
 
             return services;
         }

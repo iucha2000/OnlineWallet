@@ -16,10 +16,12 @@ namespace OnlineWallet.WebApi.Controllers
 
         [Authorize]
         [HttpPost("transfer-funds")]
-        public async Task<IActionResult> TransferFunds(CurrencyCode code)
+        public async Task<IActionResult> TransferFunds([FromForm] TransferFundsTransactionModel model)
         {
-
-            return Ok();
+            var userId = HttpContext.GetUserId();
+            var command = new AddTransferFundsTransaction(userId, model.ReceiverUserId, model.SenderWalletCode, model.ReceiverWalletCode, model.Currency, model.Amount);
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         [Authorize]
